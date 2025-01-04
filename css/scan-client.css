@@ -1,0 +1,135 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+.container {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+}
+.instructions {
+    flex: 1; /* Take up 25% of the container */
+    background-color: maroon;
+    padding: 20px;
+}
+.search-and-scan {
+    flex: 3; /* Take up 75% of the container */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+    margin-top: 20px;
+}
+
+.search {
+    width: 500px;
+    height: 40px;
+    background: maroon;
+    background: rgba(0,0,0,.2);
+    border-radius:  3px;
+    border: 1px solid maroon;
+    margin: 0 auto; /* Center horizontally */
+    display: flex;
+    align-items: center; /* Center items vertically */
+    border-radius: 20px;
+}
+
+.search input {
+    width: 370px;
+    padding: 10px 5px;
+    float: left;
+    color: black;
+    border: 0;
+    background: transparent;
+    border-radius: 3px 0 0 3px;
+    outline: none;
+}
+
+.search input:focus {
+    background: transparent;
+}
+
+.search button {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 150px;
+    color: maroon;
+    background: transparent;
+    border-left: 1px solid  ;
+    border-radius: 0 3px 3px 0;
+    outline: none;
+}
+
+.search button:hover {
+    background: maroon;
+    color: white;
+}
+
+.search button:active {
+    box-shadow: 0px 0px 15px 0px rgba(225, 225, 225, 1);
+}
+
+.container .instructions .logo img{
+    width: 150px;
+    height: auto;
+    margin-left: 105px;
+}
+
+.container .instructions h2{
+    color: white;
+    text-align: center;
+    letter-spacing: 5px;
+}   
+.container .instructions p{
+    color: white;
+    letter-spacing: 3px;
+}
+.container .instructions p img{
+    max-width: 100%;
+    height: 100px;
+
+}
+.container .instructions p1{
+    color: white;
+    letter-spacing: 3px;
+}
+.container .instructions p2{
+    color: white;
+    letter-spacing: 3px;
+}
+#searchResults {
+    width: 100%;
+    max-width: 500px;
+    text-align: center; /* Center align content */
+    margin: 0 auto; /* Center horizontally */
+    margin-bottom: 600px;
+    font-size: 20px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    animation: zoomIn 1s forwards; /* Add animation */
+    transform-origin: center center;
+    opacity: 0;
+}
+@keyframes zoomIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.5); /* Start small */
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1); /* End at normal size */
+    }
+  }
+#searchResults img{
+    width: 400px;
+    height: 400px;
+
+}
+
+

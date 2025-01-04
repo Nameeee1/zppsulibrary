@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../img/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Livvic:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
+    <title>ZPPSU Library Login</title>
+    <link rel="stylesheet" href="../css/admin-login.css">
+    <style>
+        /* Styles for loading screen */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding-top: 20%;
+        }
+        .loading-gif {
+            display: block;
+            margin: 0 auto;
+            width: 50px; /* Adjust size as needed */
+        }
+
+        /* Styles for popup modal */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="../img/logo.png" alt="ZPPSU Logo">
+    </div>
+    <div class="login-form">
+        <p>ZPPSU LIBRARY <br>LOGIN</p>
+        <form id="loginForm" action="https://script.google.com/macros/s/AKfycbzcyBuHSpkcWpqPDsl8-Ja1r5cOhKl6BbGzgou2CfU2GRWbrstWzV_nxhsfhD0iNn72/exec" method="POST" onsubmit="return login()">
+            <input type="text" name="username" placeholder="Username" autocomplete="off" required>
+            <input type="password" id="password" name="password" autocomplete="off" placeholder="Password" required>
+
+            <button type="submit">LOGIN</button>
+        </form>
+    </div>
+
+    <!-- Loading screen overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <img class="loading-gif" src="../img/loader2.gif" alt="Loading...">
+    </div>
+
+    <!-- Popup modal -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closePopup()">&times;</span>
+            <p>Invalid username or password. Please try again.</p>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            var form = document.querySelector("form");
+            var formData = new FormData(form);
+            var loadingOverlay = document.getElementById("loadingOverlay");
+
+            // Show loading overlay
+            loadingOverlay.style.display = "block";
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide loading overlay after response
+                loadingOverlay.style.display = "none";
+
+                if (data.success) {
+                    // Redirect or perform further actions after successful login
+                    window.location.href = "index.html"; // Example redirection
+                } else {
+                    // Show popup modal for invalid credentials
+                    var popupOverlay = document.getElementById("popupOverlay");
+                    popupOverlay.style.display = "block";
+                }
+            })
+            .catch(error => {
+                // Hide loading overlay on error
+                loadingOverlay.style.display = "none";
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
+            });
+
+            return false; // Prevent form submission
+        }
+
+        function closePopup() {
+            var popupOverlay = document.getElementById("popupOverlay");
+            popupOverlay.style.display = "none";
+        }
+
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var showPasswordCheckbox = document.getElementById("showPassword");
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+
+</body>
+</html>

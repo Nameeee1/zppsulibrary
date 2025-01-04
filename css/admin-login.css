@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #8B0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.content-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    justify-content: center;
+}
+
+.logo-container {
+    flex-shrink: 0;
+    margin-right: 50px; /* Adjust spacing as necessary */
+}
+
+.logo-container img {
+    width: 800px; /* Adjust width as necessary */
+    height: auto;
+}
+
+.login-form {
+    text-align: center;
+    flex: 1;
+}
+
+.login-form p {
+    color: white;
+    font-size: 100px; /* Increased font size */
+    margin-bottom: 30px; /* Increased margin */
+    font-family: "Livvic", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  text-align: left;
+  margin-right: auto;
+}
+
+.login-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 300px;
+    text-align: left;
+}
+
+.login-form input {
+    padding: 15px;
+    margin: 15px 0;
+    border: none;
+    border-radius: 5px;
+    width: 400px;
+    font-size: 18px;
+}
+
+.login-form button {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FFD700;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+    width: 430px;
+}
+.login-form button:hover {
+    background-color: #FFC700;
+}
+
+.loading-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding-top: 20%;
+}
+.loading-text {
+    color: white;
+    font-size: 20px;
+}
+
+ /* Styles for loading screen */
+ .loading-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    padding-top: 20%;
+}
+.loading-gif {
+    display: block;
+    margin: 0 auto;
+    width: 50px; /* Adjust size as needed */
+}
+
+/* Styles for popup modal */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}

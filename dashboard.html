@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/dashboard-client.css">
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <title>Dashboard</title>
+    <style>
+       /* Add any custom styles here */
+      
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo">
+        </div>
+        <h1>Student Dashboard</h1>
+        <div id="studentDetails">
+            <div class="top-row">
+                <p>Name: <span id="studentName"></span></p>
+                <p>Course: <span id="studentCourse"></span></p>
+                <p>Email: <span id="studentEmail"></span></p>
+            </div>
+            <div class="bottom-row">
+                <p>Student Number: <span id="studentNumber"></span></p>
+                <p>Status: <span id="studentStatus"></span></p>
+                <p>Check In: <span id="studentCheckIn"></span></p>
+            </div>
+            <div class="loader" id="loader">
+                <img src="img/loader2.gif" alt="Loading...">
+            </div>
+        </div>
+
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentNumber = urlParams.get('studentNumber');
+            const loader = document.getElementById('loader');
+            const studentDetails = document.getElementById('studentDetails');
+
+            async function fetchStudentDetails(studentNumber) {
+                try {
+                    loader.style.display = 'block';
+                    studentDetails.style.opacity = '0.5'; /* Optional: Dim background */
+
+                    const response = await fetch(`https://script.google.com/macros/s/AKfycbw5dcoO72K7Vvx95mlXagkbgOxQRCwo3Qbob6WxClOSKSOK0dKii9gpnLji4sFZAHSy/exec?studentNumber=${encodeURIComponent(studentNumber)}`);
+                    const studentData = await response.json();
+
+                    if (studentData) {
+                        document.getElementById('studentName').textContent = studentData.Name;
+                        document.getElementById('studentCourse').textContent = studentData.Course;
+                        document.getElementById('studentEmail').textContent = studentData.Email;
+                        document.getElementById('studentNumber').textContent = studentData['Student-Number'];
+                        document.getElementById('studentStatus').textContent = studentData.Status;
+                        document.getElementById('studentCheckIn').textContent = studentData.CheckIn;
+
+                        loader.style.display = 'none';
+                        studentDetails.style.opacity = '1'; /* Restore opacity */
+                    } else {
+                        alert('No student found with the given student number.');
+                    }
+                } catch (error) {
+                    console.error('Error fetching student details:', error);
+                    alert('Error fetching student details: ' + error.message);
+                }
+            }
+
+            // Initial fetch
+            fetchStudentDetails(studentNumber);
+
+            // Fetch data every 30 seconds (adjust as needed)
+            setInterval(() => {
+                fetchStudentDetails(studentNumber);
+            }, 30000); // 30 seconds
+        </script>
+    </div>
+</body>
+</html>

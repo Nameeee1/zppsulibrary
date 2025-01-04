@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <link rel="stylesheet" href="css/pre-loader.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jomhuria&display=swap" rel="stylesheet">
+    <title>ZPPSU Library</title>
+</head>
+<body>
+    <div class="preloader">
+        
+        <img src="img/logo.png" alt="Loading..." class="preloader-image">
+        <div class="preloader-text">ZAMBOANGA PENINSULA</div><br>
+        <div class="preloader-text">POLYTECHNIC STATE UNIVERSITY</div><br>
+        <div class="preloader-text-sub">LIBRARY REGISTRATION</div><br>
+        <span class="loader"></span>
+    </div>
+
+    <script>
+        sessionStorage.setItem('visitedPreLoader', 'true');
+        // Redirect to index.html after a delay
+        setTimeout(function() {
+            window.location.href = 'home.html';
+        }, 3000);  // Adjust the delay time (in milliseconds) as needed
+    </script>
+</body>
+</html>

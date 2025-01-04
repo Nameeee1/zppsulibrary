@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jomhuria&display=swap" rel="stylesheet">
+    <title>Registration Form</title>
+    <style>
+        /* Styling for the loading overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="post" action="" name="registration-form" id="registration-form">
+            <h4>Registration Form</h4>
+            <input type="text" name="Name" autocomplete="off" placeholder="Name" required>
+    
+            <!-- Department dropdown -->
+            <select name="Department" id="department" required>
+                <option value="" disabled selected>Select Department</option>
+                <option value="CICS">CICS</option>
+                <option value="CTE">CTE</option>
+            </select>
+    
+            <!-- Course dropdown, options will be populated based on Department selection -->
+            <select name="Course" id="course" required>
+                <option value="" disabled selected>Select Course</option>
+            </select>
+    
+            <input type="email" name="Email" autocomplete="off" placeholder="Email" required>
+            <input type="number" name="Student-Number" placeholder="Student Number" required>
+            <input type="submit" value="SUBMIT" id="submit">
+        </form>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="overlay" id="loading-overlay">
+        <div>Loading...</div>
+    </div>
+
+    <script src="js/googlesheet.js"></script>
+    <script>
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the default form submission
+            
+            // Disable the submit button to prevent multiple submissions
+            document.getElementById('submit').disabled = true;
+
+            // Show loading overlay
+            document.getElementById('loading-overlay').style.display = 'flex';
+
+            // Simulate delay and then hide loading overlay
+            setTimeout(function() {
+                document.getElementById('loading-overlay').style.display = 'none';
+
+                // Perform any form validation or processing here
+
+                // Example: Using sessionStorage to indicate form submission
+                sessionStorage.setItem('formSubmitted', 'true'); // Redirect to pre-loader page
+            }, 3000); // 3000 milliseconds = 3 seconds
+        });
+
+         // JavaScript to handle changing course options based on department
+    document.getElementById('department').addEventListener('change', function() {
+        const courseSelect = document.getElementById('course');
+        courseSelect.innerHTML = ''; // Clear previous options
+
+        const selectedDepartment = this.value;
+        let courseOptions = [];
+
+        if (selectedDepartment === 'CICS') {
+            courseOptions = ['BSIT', 'BSIS'];
+        } else if (selectedDepartment === 'CTE') {
+            courseOptions = ['BSED', 'BPED'];
+        }
+
+        courseOptions.forEach(function(course) {
+            const option = document.createElement('option');
+            option.value = course;
+            option.textContent = course;
+            courseSelect.appendChild(option);
+        });
+    });
+    </script>
+</body>
+</html>
