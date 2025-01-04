@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../img/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -231,7 +232,7 @@
             <!-- Buttons outside modal content -->
             <div class="modal-buttons">
                 <!-- Print Button -->
-                <button onclick="printIdCard()" class="print-button">Print</button>
+                <button onclick="saveAsImage()" class="print-button">Save as Image</button>
     
                 <!-- Close Button -->
                 <span class="close-button" onclick="closeIdCardModal()">&times;</span>
@@ -260,69 +261,34 @@ function closeIdCardModal() {
             const idCardModal = document.getElementById('idCardModal');
             idCardModal.style.display = 'block';
         }
+        
+        function saveAsImage() {
+        // Get the printable area (the part you want to capture as an image)
+        var printArea = document.getElementById("printable-area");
 
-        function printIdCard() {
-    // Dimensions in pixels
-    const widthPx = 204;
-    const heightPx = 324;
+        // Use html2canvas to capture the content as an image
+        html2canvas(printArea).then(function (canvas) {
+            // Convert the canvas to an image (Data URL)
+            var imageUrl = canvas.toDataURL("image/png");
 
-    // Get the content of the ID card
-    const idCardContent = document.getElementById('idCard').innerHTML;
-    const photoContent = document.querySelector('.photo').outerHTML;
+            // Create a link element to trigger the download
+            var link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = "id_card.png";  // Set the download file name
 
-    // Open a new print window
-    const printWindow = window.open('', '', `width=${widthPx},height=${heightPx}`);
-    printWindow.document.write('<html><head><title>Print ID</title>');
+            // Append the link to the body and trigger the click event to download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link); // Remove the link after clicking
+        });
+    }
 
-    // Inline CSS for print window
-    printWindow.document.write('<style>');
-    printWindow.document.write(
-        `body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: rgba(0,0,0,0.4); }
-        .modal-content { position: relative; background-color: maroon; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 2.125in; height: 3.375in; text-align: center; border-radius: 8px; display: flex; flex-direction: column; align-items: center; }
-        .logo { position: absolute; width: 0.6in; height: 0.6in; }
-        .logo.left { top: 10px; left: 10px; }
-        .logo.right { top: 10px; right: 10px; }
-        .modal-content h2 {
-    margin-top: 50px;
-    position: relative;
-    top: 5px; /* Adjust this value to move the h2 lower */
-    margin-bottom: 10px;
-    font-size: 15px;
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-}
-        #idCard { color: white; padding: 10px; border-radius: 5px; text-align: center; font-size: 11px; font-family: "Courier New", Courier, monospace; }
-        #idCard p { margin: 5px 0; font-family: "Courier New", Courier, monospace; }
-        .photo img { width: 1in; height: 1in; border-radius: 10px; object-fit: cover; margin-bottom: 15px; }
-        .print-button { background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px; }
-        .print-button:hover { background-color: #0056b3; }
-        @media print {
-            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .modal-content { background-color: maroon !important; }
-        }`
-    );
-    printWindow.document.write('</style>');
-    
-    printWindow.document.write('</head><body>');
-    printWindow.document.write('<div class="modal-content">');
-    printWindow.document.write('<img src="../img/library_logo.png" alt="Left Logo" class="logo left">');
-    printWindow.document.write('<img src="../img/logo.png" alt="Right Logo" class="logo right">');
-    printWindow.document.write('<h2>ZPPSU Student Library I.D.</h2>');
-    printWindow.document.write(photoContent);
-    printWindow.document.write('<div id="idCard">');
-    printWindow.document.write(idCardContent);
-    printWindow.document.write('</div>');
-    printWindow.document.write('</div></body></html>');
-    printWindow.document.close();
+    function closeIdCardModal() {
+        document.getElementById("idCardModal").style.display = "none";
+    }
 
-    // Print the content and close the print window
-    printWindow.print();
-    printWindow.onafterprint = function () {
-        printWindow.close();
-    };
-}
+        
+        
 
 function closeIdCardModal() {
     // Function to close the modal
