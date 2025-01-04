@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #800000; /* Dark red background color */
+    color: #ffffff; /* White text color */
+    position: relative; /* Needed to position the pseudo-element */
+    overflow: hidden; /* Prevents pseudo-element overflow */
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../img/logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.5; /* Set the opacity to 50% */
+    z-index: -1; /* Place the pseudo-element behind the content */
+}
+
+
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.container {
+    position: relative;
+    width: 80%;
+    max-width: 400px;
+    aspect-ratio: 1;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    border: 10px solid white; /* White border */
+    box-sizing: border-box;
+    border-radius: 10px; /* Rounded corners */
+}
+
+#scanOverlay {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+}

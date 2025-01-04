@@ -1,0 +1,120 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Prevents scrolling */
+  background-color: maroon;
+}
+
+.preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: maroon;
+  flex-direction: column;
+}
+
+.preloader-text {
+  font-size: 5vw; /* Responsive font size */
+  margin-top: 2vw; /* Responsive margin */
+  color: white;
+  font-family: 'Jomhuria', sans-serif;
+  letter-spacing: 0.3vw; /* Responsive letter spacing */
+}
+
+.preloader-text-sub {
+  font-size: 3vw; /* Responsive font size */
+  margin-top: 1.5vw; /* Responsive margin */
+  color: white;
+  font-family: 'Jomhuria', sans-serif;
+  letter-spacing: 0.2vw; /* Responsive letter spacing */
+}
+
+.preloader-image {
+  width: 30vw; /* Responsive width */
+  height: 30vw; /* Responsive height */
+  max-width: 300px; /* Maximum width */
+  max-height: 300px; /* Maximum height */
+}
+
+.loader {
+  width: 10vw; /* Responsive width */
+  height: 10vw; /* Responsive height */
+  max-width: 48px; /* Maximum width */
+  max-height: 48px; /* Maximum height */
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 0.5vw solid #FFF; /* Responsive border width */
+  max-border-width: 5px; /* Maximum border width */
+  animation: prixClipFix 2s linear infinite;
+}
+
+.loader::after {
+  inset: 1.5vw; /* Responsive inset */
+  transform: rotate3d(90, 90, 0, 180deg);
+  border-color: #FF3D00;
+}
+
+@keyframes rotate {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+      clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  50% {
+      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  75%, 100% {
+      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+}
+
+/* Media Queries for smaller screens */
+@media (max-width: 600px) {
+  .preloader-text {
+      font-size: 8vw; /* Increase font size on small screens */
+      margin-top: 4vw; /* Increase margin on small screens */
+  }
+
+  .preloader-text-sub {
+      font-size: 6vw; /* Increase font size on small screens */
+      margin-top: 3vw; /* Increase margin on small screens */
+  }
+
+  .preloader-image {
+      width: 50vw; /* Increase image size on small screens */
+      height: 50vw; /* Increase image size on small screens */
+  }
+
+  .loader {
+      width: 15vw; /* Increase loader size on small screens */
+      height: 15vw; /* Increase loader size on small screens */
+  }
+
+  .loader::before,
+  .loader::after {
+      border-width: 1vw; /* Increase border width on small screens */
+  }
+
+  .loader::after {
+      inset: 3vw; /* Increase inset on small screens */
+  }
+}

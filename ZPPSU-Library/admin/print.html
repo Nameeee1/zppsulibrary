@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .id-card {
+            width: 2.125in;
+            height: 3.375in;
+            border: 1px solid #000;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .id-card img {
+            width: 2in;
+            height: 2in;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .id-card .details {
+            text-align: center;
+        }
+        .id-card .details h2 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .id-card .details p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .print-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .print-button:hover {
+            background-color: #0056b3;
+        }
+        .upload-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .upload-button:hover {
+            background-color: #218838;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .id-card, .id-card * {
+                visibility: visible;
+            }
+            .id-card {
+                position: absolute;
+                left: 0;
+                top: 0;
+                margin: 0;
+            }
+        }
+    </style>
+    <script>
+        function printIDCard() {
+            window.print();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const nameElement = document.querySelector('.details h2');
+            const idElement = document.querySelector('.details p:nth-child(2)');
+            const departmentElement = document.querySelector('.details p:nth-child(3)');
+            const photoElement = document.querySelector('.photo img');
+
+            // Sample data, you can fetch or update this dynamically
+            const data = {
+                name: "Jane Smith",
+                id: "654321",
+                department: "Human Resources",
+                photo: "../img/2x2.jpg" // Replace with the path to the new photo
+            };
+
+            nameElement.textContent = data.name;
+            idElement.textContent = `ID: ${data.id}`;
+            departmentElement.textContent = `Department: ${data.department}`;
+            photoElement.src = data.photo;
+        });
+
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const photoElement = document.querySelector('.photo img');
+                photoElement.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</head>
+<body>
+    <div class="id-card">
+        <div class="photo">
+            <img src="../img/2x2.jpg" alt="Photo">
+        </div>
+    </div>
+    <input type="file" class="upload-button" accept="image/*" onchange="previewImage(event)">
+    <button class="print-button" onclick="print

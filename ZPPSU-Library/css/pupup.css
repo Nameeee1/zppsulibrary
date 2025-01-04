@@ -1,0 +1,102 @@
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none;
+    width: 300px;
+    max-width: 80%;
+}
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+.popup h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333;
+}
+.popup label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+.popup input {
+    width: calc(100% - 20px);
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.popup button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.popup .save-btn {
+    background-color: #28a745;
+    color: white;
+}
+.popup .cancel-btn {
+    background-color: #dc3545;
+    color: white;
+    margin-left: 10px;
+}
+.popup button:hover {
+    opacity: 0.9;
+}
+.popup-confirm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    width: 300px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.popup-confirm button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-confirm .confirm-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.popup-confirm .cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}

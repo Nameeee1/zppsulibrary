@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/scan-client.css">
+<link rel="icon" type="image/x-icon" href="../img/logo.png">
+<script src="../js/search.js"></script>
+<title>Student QR Code</title>
+<style>
+.loader {
+  width: 60px;
+  aspect-ratio: 4;
+  background: radial-gradient(circle closest-side, #000 90%, #0000) 0/calc(100%/3) 100% space;
+  clip-path: inset(0 100% 0 0);
+  animation: l1 1s steps(4) infinite;
+}
+@keyframes l1 {
+  to {
+    clip-path: inset(0 -34% 0 0);
+  }
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust as needed to fit your design */
+  margin-top: 250px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="instructions">
+        <div class="logo">
+            <img src="../img/logo.png" alt="ZPPSU Logo">
+        </div>
+        <h2>Instructions</h2>
+        <p>1. Search your Student Number in the search bar.<br>
+            <br>
+            <img src="../img/searchbar.png" alt="Search Bar">
+            <br>
+            <br>
+            2. Wait for the results to be displayed.<br>
+            <br>
+            3. Scan your QR Code to check in.
+        </p><br>
+    </div>
+    
+    <div class="search-and-scan">
+        <form class="search" id="searchForm">
+          <input type="search" id="searchInput" autocomplete="off" placeholder="Search by student number..." required>
+          <button type="submit">Search</button>
+        </form>
+        <div id="loading" class="loader-container" style="display: none;">
+          <div class="loader"></div>
+        </div>
+        <div id="searchResults"></div>
+    </div>
+</div>
+
+<script>
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting
+
+  var studentNumber = document.getElementById('searchInput').value.trim();
+  var loadingDiv = document.getElementById('loading');
+  var resultsDiv = document.getElementById('searchResults');
+
+  // Show the loading indicator
+  loadingDiv.style.display = 'flex';
+  resultsDiv.innerHTML = '';
+
+  fetch('https://script.google.com/macros/s/AKfycbyss0nzPeU04R4_MT4sC8CXn1LNwotaGIcH9df96FVRwqTEom7vUSBxkZCviQh3JBfU/exec?studentNumber=' + encodeURIComponent(studentNumber))
+    .then(response => response.json())
+    .then(data => {
+      // Hide the loading indicator
+      loadingDiv.style.display = 'none';
+
+      if (data.found) {
+        // Display student information and QR code URL
+        resultsDiv.innerHTML = `
+          <p>Name: ${data.name}</p>
+          <p>Student Number: ${data.studentNumber}</p>
+          <p>QR Code:</p>
+          <img src="${data.qrCodeUrl}" alt="QR Code">
+        `;
+      } else {
+        resultsDiv.innerHTML = '<p>Student not found or already Checked In.</p>';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      // Hide the loading indicator
+      loadingDiv.style.display = 'none';
+      resultsDiv.innerHTML = '<p>An error occurred. Please try again later.</p>';
+    });
+});
+</script>
+
+</body>
+</html>

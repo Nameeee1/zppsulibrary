@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/confirmation.css">
+    <link rel="icon" type="image/x-icon" href="../img/logo.png">
+    <title>Confirmation</title>
+    <style>
+        #qr-code-button {
+            display: none;
+            margin-top: 200px; /* Add some margin to the top to separate from other elements */
+            text-align: center;
+        }
+        #qr-code-button button {
+            padding: 15px 30px; /* Increase padding for more size */
+            font-size: 40px; /* Increase font size for better visibility */
+            cursor: pointer;
+            background-color: #86957b; /* Adjust the background color */
+            color: #ffffff; /* Text color */
+            border: none;
+            border-radius: 25px; /* Rounded corners */
+            display: inline-block; /* Ensure button stays in line */
+            width: 500px; /* Adjust width as needed */
+            height: 80px; /* Adjust height as needed */ /* Adjust margin top if necessary */
+            margin-bottom: 500px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="status">Checking registration status...</h1>
+        <p id="message">Please wait.</p>
+    </div>
+    <div id="qr-code-button">
+        <button onclick="scanQRCode()">
+            <img src="img/qr_code.png" alt="QR Code Icon" width="24" height="24"> <!-- Icon image -->
+            Scan QR Code
+        </button>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyzrZD5LScnvOjsa9VD5Py1OcyqVRp0Vzs_8Qn0kpfRgEI_ki_iSamW-mS2t_fTo5CE/exec';
+        const urlParams = new URLSearchParams(window.location.search);
+        const studentNumber = urlParams.get('studentNumber');
+        const statusElement = document.getElementById('status');
+        const messageElement = document.getElementById('message');
+        const qrCodeButton = document.getElementById('qr-code-button');
+
+        function checkStatus() {
+            fetch(`${scriptURL}?action=getStatus&studentNumber=${studentNumber}`)
+                .then(response => response.json())
+                .then(data => {
+                    const status = data.status;
+                    if (status === 'Pending') {
+                        // If registration is pending, show the waiting message
+                        statusElement.textContent = 'Registration Pending';
+                        messageElement.textContent = 'Your registration is pending admin approval. You will be notified once it is confirmed.';
+                        // Continue checking status after a delay
+                        setTimeout(checkStatus, 5000); // Check every 5 seconds
+                    } else if (status === 'Approved') {
+                        // If registration is approved, show the approved message
+                        statusElement.textContent = 'Registration Approved!';
+                        messageElement.textContent = 'Thank you for registering. Your registration has been approved.';
+                        // Show the QR code button
+                        qrCodeButton.style.display = 'block';
+                    } else if (status === 'Declined') {
+                        // If registration is declined, show the declined message
+                        statusElement.textContent = 'Registration Declined';
+                        messageElement.textContent = 'Sorry, your registration has been declined.';
+                    } else {
+                        // If status is not recognized, show error message
+                        statusElement.textContent = 'Error';
+                        messageElement.textContent = 'An error occurred while checking your registration status.';
+                    }
+                })
+                .catch(error => {
+                    // If error occurred, show error message
+                    console.error('Error!', error.message);
+                    statusElement.textContent = 'Error';
+                    messageElement.textContent = 'An error occurred while checking your registration status.';
+                });
+        }
+
+        function scanQRCode() {
+    // Redirect to the QR code scanning page with the student number in the URL
+    window.location.href = `scan.html?studentNumber=${studentNumber}`;
+}
+
+        checkStatus(); // Immediately check status when the page loads
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: maroon;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../img/logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  body {
+      background-size: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+      background-size: 90%;
+  }
+}
+
+@media (max-width: 375px) {
+  body {
+      background-size: 100%;
+  }
+}
+
+.container {
+  width: 90%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: transparent;
+  animation: zoomIn 1s forwards;
+}
+
+@keyframes zoomIn {
+  from {
+      transform: scale(0);
+      opacity: 0;
+  }
+  to {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+h4 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: white;
+  text-align: center;
+  font-family: 'Jomhuria', sans-serif;
+  letter-spacing: 3px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Specific styles for the dropdowns */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="black" d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+  background-color: #fff;
+  background-size: 12px;
+}
+
+#submit {
+  border: none;
+  border: 4px solid white;
+  background-color: transparent;
+  color: white;
+  width: 50%;
+  max-width: 200px;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1rem;
+  text-align: center;
+}
+
+#submit:hover {
+  background-color: #333333;
+}
+
+@media (max-width: 600px) {
+  #submit {
+      width: 70%;
+      padding: 12px;
+      font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+      padding: 20px;
+  }
+
+  .container {
+      padding: 20px;
+  }
+
+  input, select {
+      font-size: 16px;
+  }
+
+  h4 {
+      font-size: 1.5rem;
+  }
+
+  #submit {
+      font-size: 1rem;
+  }
+} 
