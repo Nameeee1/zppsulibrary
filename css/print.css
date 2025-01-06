@@ -14,7 +14,7 @@
 /* Modal Content */
 .modal-content {
     position: relative;
-    background-color: white;
+    background-color: maroon; /* Set background to maroon */
     margin: 10% auto;
     padding: 0;
     border: 1px solid #888;
@@ -32,7 +32,7 @@
 
 /* Header section with white background */
 .modal-header {
-    background-color: white;
+    background-color: white; /* Keep header white */
     width: 100%;
     display: flex;
     justify-content: space-between; /* Ensures space between logos and title */
@@ -68,7 +68,7 @@
 
 /* Main content section */
 .modal-body {
-    background-color: maroon;
+    background-color: maroon; /* Set background to maroon */
     color: white;
     flex: 1;
     padding: 20px;
@@ -83,7 +83,11 @@
     border-radius: 5px;
     text-align: center;
     font-size: 11px;
+    background-color: inherit; /* Maintain maroon background */
+     width: 3.375in;
+    height: 2.125in;
 }
+
 
 #idCard h2 {
     margin-bottom: 15px;
@@ -123,6 +127,7 @@
 .close-button:hover {
     color: #ccc;
 }
+
 /* Buttons outside modal content */
 .modal-buttons {
     display: flex;

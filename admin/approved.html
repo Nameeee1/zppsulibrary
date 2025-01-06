@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../img/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    
 
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -232,7 +232,7 @@
             <!-- Buttons outside modal content -->
             <div class="modal-buttons">
                 <!-- Print Button -->
-                <button onclick="saveAsImage()" class="print-button">Save as Image</button>
+                <button onclick="printIdCard()" class="print-button">Print</button>
     
                 <!-- Close Button -->
                 <span class="close-button" onclick="closeIdCardModal()">&times;</span>
@@ -245,6 +245,47 @@
     
 
     <script>
+
+         // Function to print the ID card
+  function printIdCard() {
+    // Create a new window for printing
+    var printWindow = window.open('', '', 'height=600,width=800');
+
+    // Get the modal content
+    var content = document.getElementById('idCardModal').innerHTML;
+
+    // Write the content to the new window with the required styles
+    printWindow.document.write('<html><head><title>Print ID Card</title>');
+    
+    // Inject the modal styles into the print window
+    printWindow.document.write('<style>' +
+      '.modal-content { background-color: maroon; width: 2.125in; height: 3.375in; font-family: Arial, sans-serif; margin: 0 auto; padding: 0; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 8px; text-align: center; }' +
+      '.modal-header { background-color: white; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px; box-sizing: border-box; border-bottom: 2px solid maroon; }' +
+      '.header-title { font-size: 10px; font-weight: bold; color: maroon; margin: 0; flex-grow: 1; text-align: center; }' +
+      '.logo { width: 0.5in; height: 0.5in; }' +
+      '.modal-body { background-color: maroon; color: white; flex: 1; padding: 20px; text-align: center; }' +
+      '#idCard { font-size: 11px; background-color: inherit; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; padding: 10px; border-radius: 5px; text-align: center; }' +
+      '#idCard p { margin: 5px 0; }' +
+      '.photo img { width: 1in; height: 1in; border-radius: 10px; object-fit: cover; margin-bottom: 10px; }' +
+      '.print-button { display: none; }' +  // Hide the print button when printing
+      '</style>');
+    
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(content);  // Write modal content to the new window
+    printWindow.document.write('</body></html>');
+
+    // Wait for the content to load before triggering the print
+    printWindow.document.close();
+    printWindow.onload = function() {
+      printWindow.print();
+      printWindow.close();
+    };
+  }
+
+  // Function to close the modal
+  function closeIdCardModal() {
+    document.getElementById('idCardModal').style.display = 'none';
+  }
 
 function closeIdCardModal() {
     // Function to close the modal
@@ -261,31 +302,6 @@ function closeIdCardModal() {
             const idCardModal = document.getElementById('idCardModal');
             idCardModal.style.display = 'block';
         }
-        
-        function saveAsImage() {
-        // Get the printable area (the part you want to capture as an image)
-        var printArea = document.getElementById("printable-area");
-
-        // Use html2canvas to capture the content as an image
-        html2canvas(printArea).then(function (canvas) {
-            // Convert the canvas to an image (Data URL)
-            var imageUrl = canvas.toDataURL("image/png");
-
-            // Create a link element to trigger the download
-            var link = document.createElement('a');
-            link.href = imageUrl;
-            link.download = "id_card.png";  // Set the download file name
-
-            // Append the link to the body and trigger the click event to download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link); // Remove the link after clicking
-        });
-    }
-
-    function closeIdCardModal() {
-        document.getElementById("idCardModal").style.display = "none";
-    }
 
         
         
